@@ -5,6 +5,7 @@ import "./UserList.css";
 
 function UserList() {
     const [users, setUsers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
 
     const fetchData = async () => {
@@ -38,21 +39,38 @@ function UserList() {
         navigate("/login");
     };
 
+    const filteredUsers = users.filter(
+        (u) =>
+            u.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            u.department?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            u.role?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="userlist-container">
             <div className="userlist-header">
-                <h2> Danh sách người dùng</h2>
+                <h2>Danh sách người dùng</h2>
                 <button onClick={handleLogout} className="logout-button">
-                     Đăng xuất
+                    Đăng xuất
                 </button>
             </div>
 
-            <Link to="/add-user" className="add-link">
-                + Thêm người dùng
-            </Link>
+            <div className="add-user-wrapper">
+                <Link to="/add-user" className="add-link">
+                    + Thêm người dùng
+                </Link>
+            </div>
+
+            <input
+                type="text"
+                placeholder="Tìm kiếm theo tên, phòng ban, vai trò..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+            />
 
             <ul className="user-list">
-                {users.map((u) => (
+                {filteredUsers.map((u) => (
                     <li key={u.id} className="user-item">
                         <span>
                             <strong>{u.name}</strong> - {u.department} - {u.role}

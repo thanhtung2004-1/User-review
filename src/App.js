@@ -6,6 +6,7 @@ import EditUser from "./components/EditUser";
 import ViewUser from "./components/ViewUser";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import MainLayout from "./components/MainLayout"; // 👉 Mới thêm
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,13 +23,13 @@ function App() {
                 <Route path="/register" element={<Register />} />
 
                 {isLoggedIn ? (
-                    <>
-                        <Route path="/" element={<Navigate to="/users" />} />
-                        <Route path="/users" element={<UserList setIsLoggedIn={setIsLoggedIn} />} />
-                        <Route path="/add-user" element={<AddUser />} />
-                        <Route path="/edit-user/:id" element={<EditUser />} />
-                        <Route path="/view-user/:id" element={<ViewUser />} />
-                    </>
+                    <Route path="/" element={<MainLayout />}>
+                        <Route index element={<Navigate to="users" />} />
+                        <Route path="users" element={<UserList />} />
+                        <Route path="add-user" element={<AddUser />} />
+                        <Route path="edit-user/:id" element={<EditUser />} />
+                        <Route path="view-user/:id" element={<ViewUser />} />
+                    </Route>
                 ) : (
                     <Route path="*" element={<Navigate to="/login" />} />
                 )}

@@ -23,12 +23,34 @@
     cursor: pointer;
 }
 
-.add-link {
-    display: inline-block;
+.add-user-wrapper {
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: 20px;
+}
+
+.add-link {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 6px;
     font-weight: bold;
-    color: #007bff;
     text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.add-link:hover {
+    background-color: #0056b3;
+}
+
+.search-input {
+    padding: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
 .user-list {
